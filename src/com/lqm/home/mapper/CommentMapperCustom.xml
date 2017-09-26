@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lqm.home.mapper.CommentMapperCustom" >
+	
+	<select id="selectCommentsPageByPostId" parameterType="CommentCustom" resultType="Comment">
+		select * from comment
+		<if test="postid != -1">
+			<where>
+				postid = #{postid} 
+			</where>
+		</if>
+		order by create_time asc
+		<include refid="pageSQL"></include>
+	</select>
+
+	<insert id="insertCommentGetCommentId" parameterType="com.lqm.home.po.Comment">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into comment (id, postid, userid,
+		useraccount,username, userphoto, content,
+		content_img, floor, create_time
+		)
+		values (#{id,jdbcType=INTEGER}, #{postid,jdbcType=INTEGER},
+		#{userid,jdbcType=INTEGER},#{useraccount,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR}, #{userphoto,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+		#{contentImg,jdbcType=VARCHAR}, #{floor,jdbcType=INTEGER},
+		#{createTime,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<sql id="pageSQL">
+		<if test="page.beginIndex!=null and page.endIndex != null">
+				limit ${page.beginIndex},${page.endIndex}
+		</if>
+	</sql>
+</mapper>

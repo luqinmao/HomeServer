@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lqm.home.mapper.PostMapperCustom" >
+	
+	<select id="selectPostpage" parameterType="PostCustom" resultType="Post">
+		select * from post
+		<if test="villageId != null">
+			<where>
+				village_id = #{villageId} 
+			</where>
+		</if>
+		order by create_time desc
+		<include refid="pageSQL"></include>
+	</select>
+	
+	<sql id="pageSQL">
+		<if test="page.beginIndex!=null and page.endIndex != null">
+				limit ${page.beginIndex},${page.endIndex}
+		</if>
+	</sql>
+</mapper>

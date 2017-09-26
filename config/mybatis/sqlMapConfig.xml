@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 全局配置参数，需要时再设置 -->
+	<settings>
+		<!-- 打开延迟加载 的开关 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 将积极加载改为消极加载即按需要加载 -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+		<!-- 开启二级缓存 -->
+		<setting name="cacheEnabled" value="true"/>
+		<!-- 支持驼峰命名法 -->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	
+	<!-- 配置别名 -->
+	<typeAliases>
+		<!-- 批量扫描别名 -->
+		<package name="com.lqm.home.po"/>
+		<!-- pojo中有自己拓展po中类的一些custom类，statement中参数要用到别名 -->
+		<package name="com.lqm.home.pojo"/>
+	</typeAliases>
+
+	<!-- 配置mapper
+	由于使用spring和mybatis的整合包进行mapper扫描，这里不需要配置了。
+	必须遵循：mapper.xml和mapper.java文件同名且在一个目录 
+	 -->
+
+	<!-- <mappers>
+	
+	</mappers> -->
+</configuration>
